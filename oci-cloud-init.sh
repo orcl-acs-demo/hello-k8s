@@ -124,6 +124,7 @@ main() {
   create_user_oracle
   prepare_wls_directories
   #MOS Note [ID 1487773.1]
+  prepare_wls_install
   install_docker
   
 }
