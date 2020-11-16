@@ -67,7 +67,7 @@ yum clean all;
 
 }
 
-install Server_with_GUI() {
+install_Server_with_GUI() {
 # yum groupupdate "Development Libraries"
 # yum groupremove "Development Libraries"
 yum groupinstall -y "Development tools"; \
