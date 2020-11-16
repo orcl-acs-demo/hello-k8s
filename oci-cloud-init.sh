@@ -92,7 +92,7 @@ install_docker() {
 }
 
 create_user_oracle(){
-groupadd -g 2020 oracle
+groupadd -g 2020 oracle \
 && useradd -b /home -m -g oracle -u 2020 -s /bin/bash oracle
 #&& chown oracle:oracle -R /u01
 }
