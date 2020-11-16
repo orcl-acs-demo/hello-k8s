@@ -123,7 +123,12 @@ yum -y install jdk1.8.x86_64
 install_kube_tools() {
 yum -y install kubectl; 
 #bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh)"
+cd /tmp
+curl -SLO https://get.helm.sh/helm-v3.3.3-linux-amd64.tar.gz && gunzip helm-v3.3.3-linux-amd64.tar.gz && tar -xvf helm-v3.3.3-linux-amd64.tar \
+&& mv linux-amd64/helm /usr/local/bin/
+
 su - oracle \
+&& cd /tmp \
 && wget https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh \
 && chmod +x install.sh
 && ./install.sh --accept-all-defaults 
