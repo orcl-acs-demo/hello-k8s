@@ -98,10 +98,10 @@ groupadd -g 2020 oracle \
 }
 
 prepare_wls_directories() {
-mkdir -p /u01/tmp
-&& mkdir -p /u01/oracle/Middleware/product/12.2.1
-&& mkdir -p /u01/oracle/Middleware/product/oraInventory
-&& mkdir -p /u01/oracle/Middleware/user_projects/domains
+mkdir -p /u01/tmp \
+&& mkdir -p /u01/oracle/Middleware/product/12.2.1 \
+&& mkdir -p /u01/oracle/Middleware/product/oraInventory \
+&& mkdir -p /u01/oracle/Middleware/user_projects/domains \
 && mkdir -p /u01/tools
 chown oracle:oracle -R /u01
 chmod -R 775 /u01/
