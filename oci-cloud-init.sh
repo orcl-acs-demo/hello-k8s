@@ -2,8 +2,8 @@
 
 readonly PGM=$(basename $0)
 readonly YUM_OPTS="-d1 -y"
-readonly USER="opc"
-readonly USER_HOME=$(eval echo ~${USER})
+readonly USER="oracle"
+#readonly USER_HOME=$(eval echo ~${USER})
 readonly VNC_PASSWORD="MySecretVNCPassword"
 
 
@@ -23,7 +23,7 @@ install_fluxbox() {
     "
 }
 
-install_packs(){
+install_generic_packs(){
 yum -y update; \
 yum -y install yum-utils && \
 yum-config-manager --enable rhel-7-server-optional-rpms && \
@@ -91,6 +91,28 @@ install_docker() {
   su - ${USER} -c "pip3 install --user docker-compose"
 }
 
+create_user_oracle(){
+groupadd -g 2020 oracle
+&& useradd -b /home -m -g oracle -u 2020 -s /bin/bash oracle
+#&& chown oracle:oracle -R /u01
+}
+
+prepare_wls_directories() {
+mkdir -p /u01/tmp
+&& mkdir -p /u01/oracle/Middleware/product/12.2.1
+&& mkdir -p /u01/oracle/Middleware/product/oraInventory
+&& mkdir -p /u01/oracle/Middleware/user_projects/domains
+&& mkdir -p /u01/tools
+chown oracle:oracle -R /u01
+chmod -R 775 /u01/
+}
+
+prepare_wls_install() {
+cat >>/u01/oracle/Middleware/product/oraInst.loc<<EOF
+inventory_loc=/u01/oracle/Middleware/product/oraInventory
+inst_group=oracle
+EOF
+}
 
 main() {
   #install_python3
@@ -98,7 +120,12 @@ main() {
   #install_docker      # docker-compose depends on python3
   #configure_firewall
   timedatectl set-timezone Europe/Warsaw
-  install_packs
+  #install_generic_packs
+  create_user_oracle
+  prepare_wls_directories
+  #MOS Note [ID 1487773.1]
+  install_docker
+  
 }
 
 main "$@"
