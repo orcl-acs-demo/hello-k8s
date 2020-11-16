@@ -120,6 +120,14 @@ yum -y erase java
 yum -y install jdk1.8.x86_64
 }
 
+install_kube_tools() {
+yum -y install kubectl; 
+#bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh)"
+su - oracle \
+&& wget https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh \
+&& chmod +x install.sh
+&& ./install.sh --accept-all-defaults 
+}
 
 main() {
   #install_python3
