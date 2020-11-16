@@ -120,18 +120,21 @@ yum -y erase java
 yum -y install jdk1.8.x86_64
 }
 
-install_kube_tools() {
+install_cloud_tools() {
 yum -y install kubectl; 
 #bash -c "$(curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh)"
 cd /tmp
 curl -SLO https://get.helm.sh/helm-v3.3.3-linux-amd64.tar.gz && gunzip helm-v3.3.3-linux-amd64.tar.gz && tar -xvf helm-v3.3.3-linux-amd64.tar \
 && mv linux-amd64/helm /usr/local/bin/
 
+curl -SLO  https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip && unzip terraform_0.13.5_linux_amd64.zip && mv ./terraform /usr/local/bin/
+
 su - oracle \
 && cd /tmp \
 && wget https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh \
 && chmod +x install.sh
 && ./install.sh --accept-all-defaults 
+
 }
 
 main() {
@@ -146,6 +149,7 @@ main() {
   #MOS Note [ID 1487773.1]
   prepare_wls_install
   install_docker
+  install_cloud_tools
   
 }
 
