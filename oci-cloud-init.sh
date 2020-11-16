@@ -63,12 +63,13 @@ yum install -y sos; \
 yum install -y NetworkManager; \
 yum install -y git; \
 yum install -y unzip; \
-# yum groupupdate "Development Libraries"
-# yum groupremove "Development Libraries"
 yum clean all;
 
 }
+
 install Server_with_GUI() {
+# yum groupupdate "Development Libraries"
+# yum groupremove "Development Libraries"
 yum groupinstall -y "Development tools"; \
 yum groupinstall -y "Server with GUI"
 }
