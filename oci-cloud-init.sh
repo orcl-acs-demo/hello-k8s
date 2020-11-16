@@ -114,6 +114,13 @@ inst_group=oracle
 EOF
 }
 
+prepare_java() {
+#yum -y remove java-1.8.0-openjdk java-1.8.0-openjdk-headless;
+yum -y erase java
+#yum -y install jdk1.8.x86_64
+}
+
+
 main() {
   #install_python3
   #install_fluxbox
